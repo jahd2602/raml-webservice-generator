@@ -7,6 +7,10 @@ body {
   -webkit-app-region: drag;
 }
 
+.row {
+  margin-bottom: 0;
+}
+
 .z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-floating, .dropdown-content, .collapsible, .side-nav {
   box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   border-radius: 4px !important;
@@ -56,13 +60,6 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
   color: #666 !important;
 }
 
-.card {
-
-  .card-action {
-    padding: 20px 0 0 0 !important;
-  }
-}
-
 .loading {
   display: none;
 }
@@ -85,10 +82,6 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
   box-shadow: none !important;
   border: none !important;
   color: #444 !important;
-}
-
-.card .card-content {
-  padding: 0 !important;
 }
 
 .titlebar {
@@ -191,4 +184,7 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
   */
   -ms-user-select: none;
   user-select: none;
+}
+select.browser-default {
+  margin-top: 40px;
 }

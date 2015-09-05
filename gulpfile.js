@@ -111,7 +111,7 @@ gulp.task('build:apps', function () {
             version: 'v0.31.1',
             packaging: true,
             //platforms: ['darwin-x64'],
-            platforms: ['win32-ia32', 'darwin-x64', 'linux-ia32'],
+            platforms: ['win32-ia32', 'darwin-x64', 'linux-ia32', 'linux-x64'],
             platformResources: {
                 darwin: {
                     CFBundleDisplayName: packageJson.name,

@@ -22,7 +22,9 @@ app.on('window-all-closed', function () {
 // initialization and is ready to create browser windows.
 app.on('ready', function () {
     // Create the browser window.
-    mainWindow = new BrowserWindow({transparent: true, frame: false, width: 450, height: 400});
+    mainWindow = new BrowserWindow({transparent: false, frame: true, width: 550, height: 400});
+
+    mainWindow.setMenu(null);
 
     // and load the index.html of the app.
     mainWindow.loadUrl('file://' + __dirname + '/generator/index.html');

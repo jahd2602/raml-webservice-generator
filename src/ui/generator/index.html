@@ -9,180 +9,173 @@
 </head>
 <body>
 
-<div class="card">
+<div class="container">
+    <div class="card">
 
-    <div class="titlebar">
-        <div class="titlebar-stoplight">
-            <div class="titlebar-minimize"></div>
-            <div class="titlebar-close"></div>
-        </div>
-        <div class="titlebar-title">RAML Code Generador</div>
+        <form id="generator" enctype="multipart/form-data">
+
+            <div class="row" id="step1">
+                <div class="col s12">
+
+                    <div class="card-content">
+                        <span class="card-title grey-text text-darken-4">Step 1:
+                            <em>Choose RAML file</em>
+                        </span>
+
+                        <div class="card-panel red lighten-1 error-step1">
+                            <span class="white-text text-accent-1">Required field</span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="file-field input-field">
+                                    <input class="file-path validate" type="text"/>
+
+                                    <div class="btn">
+                                        <span>Choose</span>
+                                        <input type="file" name="inputFile" accept=".raml"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-action">
+                        <button class="btn waves-effect waves-light goto-step2" type="button">Next
+                        </button>
+
+                        <button class="btn btn-link waves-effect right exit" type="button">Exit
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row" id="step2">
+                <div class="col s12">
+
+                    <div class="card-content">
+                        <span class="card-title grey-text text-darken-4">Step 2:
+                            <em>Choose what you want to generate</em>
+                        </span>
+
+                        <div class="card-panel red lighten-1 error-step2">
+                            <span class="white-text text-accent-1">Required field</span>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="selTemplate">
+                                    Language / Framework
+                                </label>
+                                <select class="browser-default" name="template" id="selTemplate">
+                                    <option value="" disabled>Choose your template</option>
+                                    <option value="phpSilex" selected>PHP + Silex Application</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-action">
+                        <button class="btn waves-effect waves-light goto-step3" type="button">Next
+                        </button>
+
+                        <button class="btn btn-link waves-effect right exit" type="button">Cancel
+                        </button>
+                        <button class="btn btn-link waves-effect right goto-step1" type="button">Back
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row" id="step3">
+                <div class="col s12">
+
+                    <div class="card-content">
+                        <span class="card-title grey-text text-darken-4">Step 3:
+                            <em>Choose the output directory</em>
+                        </span>
+
+                        <div class="card-panel red lighten-1 error-step3">
+                            <span class="white-text text-accent-1">Required field</span>
+                        </div>
+                        <div class="card-panel red lighten-1 error-generator">
+                            <span class="white-text text-accent-1">Error: unknown</span>
+                        </div>
+
+                        <div class="row final-container">
+                            <div class="col s12">
+                                <div class="file-field input-field">
+                                    <input class="file-path validate" type="text"/>
+
+                                    <div class="btn">
+                                        <span>Choose</span>
+                                        <input type="file" name="outputDirectory" webkitdirectory/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="progress loading">
+                            <div class="indeterminate"></div>
+                        </div>
+
+                    </div>
+                    <div class="card-action">
+                        <button type="submit" class="btn waves-effect waves-light" id="submit-form">Generate
+                        </button>
+                        <button class="btn btn-link waves-effect right exit" type="button">Cancel
+                        </button>
+
+                        <button class="btn btn-link waves-effect right goto-step2" type="button">Back
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row" id="step4">
+                <div class="col s12">
+
+                    <div class="card-content">
+                        <span class="card-title grey-text text-darken-4">Step 4:
+                            <em>Enjoy!</em>
+                        </span>
+
+                        <div class="card-panel  green">
+                            <span class="white-text text-accent-1">Code Generated, enjoy!</span>
+                        </div>
+
+                        <div class="center">
+                            <button class="btn  waves-effect text-black waves-light open-output-folder">Open Folder
+                            </button>
+                        </div>
+
+                        <blockquote>
+                            See our code on <a target="_blank" href="#" id="github-link">Github</a>.
+                        </blockquote>
+
+                    </div>
+                    <div class="card-action">
+                        <button type="button"
+                                class="btn btn-again  waves-effect text-black waves-light grey lighten-4 goto-step1">
+                            Start
+                            again
+                        </button>
+                        <button class="btn btn-link waves-effect right exit" type="button">Exit
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+        </form>
+
     </div>
-
-    <form id="generator" enctype="multipart/form-data">
-
-        <div class="row" id="step1">
-            <div class="col s12">
-
-                <div class="card-content">
-                <span class="card-title grey-text text-darken-4">Step 1:
-                    <em>Choose RAML file</em>
-                </span>
-
-                    <div class="card-panel red lighten-1 error-step1">
-                        <span class="white-text text-accent-1">Required field</span>
-                    </div>
-
-                    <div class="row">
-                        <div class="file-field input-field">
-                            <input class="file-path validate" type="text"/>
-
-                            <div class="btn">
-                                <span>Choose</span>
-                                <input type="file" name="inputFile" accept=".raml"/>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-                <div class="card-action">
-                    <button class="btn waves-effect waves-light goto-step2" type="button">Next
-                    </button>
-
-                    <button class="btn btn-link waves-effect right exit" type="button">Exit
-                    </button>
-
-                </div>
-
-            </div>
-        </div>
-
-
-        <div class="row" id="step2">
-            <div class="col s12">
-
-                <div class="card-content">
-                <span class="card-title grey-text text-darken-4">Step 2:
-                    <em>Choose what you want to generate</em>
-                </span>
-
-                    <div class="card-panel red lighten-1 error-step2">
-                        <span class="white-text text-accent-1">Required field</span>
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <!--<label>Template</label>-->
-                            <select class="browser-default" name="template">
-                                <option value="" disabled>Choose your template</option>
-                                <option value="phpSilex" selected>PHP + Silex Application</option>
-                            </select>
-                        </div>
-                    </div>
-
-
-                </div>
-                <div class="card-action">
-                    <button class="btn waves-effect waves-light goto-step3" type="button">Next
-                    </button>
-
-                    <button class="btn btn-link waves-effect right exit" type="button">Cancel
-                    </button>
-                    <button class="btn btn-link waves-effect right goto-step1" type="button">Back
-                    </button>
-
-                </div>
-
-            </div>
-        </div>
-
-
-        <div class="row" id="step3">
-            <div class="col s12">
-
-                <div class="card-content">
-                <span class="card-title grey-text text-darken-4">Step 3:
-                    <em>Choose the output directory</em>
-                </span>
-
-                    <div class="card-panel red lighten-1 error-step3">
-                        <span class="white-text text-accent-1">Required field</span>
-                    </div>
-                    <div class="card-panel red lighten-1 error-generator">
-                        <span class="white-text text-accent-1">Error: unknown</span>
-                    </div>
-
-                    <div class="row final-container">
-                        <div class="file-field input-field">
-                            <input class="file-path validate" type="text"/>
-
-                            <div class="btn">
-                                <span>Choose</span>
-                                <input type="file" name="outputDirectory" webkitdirectory/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="progress loading">
-                        <div class="indeterminate"></div>
-                    </div>
-
-
-                </div>
-                <div class="card-action">
-                    <button type="submit" class="btn waves-effect waves-light" id="submit-form">Generate
-                    </button>
-                    <button class="btn btn-link waves-effect right exit" type="button">Cancel
-                    </button>
-
-                    <button class="btn btn-link waves-effect right goto-step2" type="button">Back
-                    </button>
-
-                </div>
-
-            </div>
-        </div>
-
-        <div class="row" id="step4">
-            <div class="col s12">
-
-                <div class="card-content">
-                <span class="card-title grey-text text-darken-4">Step 4:
-                    <em>Enjoy!</em>
-                </span>
-
-                    <div class="card-panel  green">
-                        <span class="white-text text-accent-1">Code Generated, enjoy!!</span>
-                    </div>
-
-                    <div class="center">
-                        <button class="btn  waves-effect text-black waves-light open-output-folder">Open Folder</button>
-                    </div>
-
-
-                    <blockquote>
-                        See our code on <a target="_blank" href="#" id="github-link">Github</a>.
-                    </blockquote>
-
-
-                </div>
-                <div class="card-action">
-                    <button type="button"
-                            class="btn btn-again  waves-effect text-black waves-light grey lighten-4 goto-step1">Start
-                        again
-                    </button>
-                    <button class="btn btn-link waves-effect right exit" type="button">Exit
-                    </button>
-
-
-                </div>
-
-            </div>
-        </div>
-    </form>
-
-
 </div>
 
 <script>
@@ -190,7 +183,6 @@
     window.Hammer = require('./bower_components/hammerjs/hammer.js');
 </script>
 <script src="bower_components/Materialize/dist/js/materialize.js"></script>
-
 
 </body>
 <script>
@@ -208,8 +200,8 @@
         var mkdirp = Bluebird.promisify(require('mkdirp'));
         var writeFile = Bluebird.promisify(require('fs').writeFile);
 
-
-        $steps = $('#generator > .row');
+        $generator = $('#generator');
+        $steps = $generator.find('> .row');
 
         function goToStep1() {
             $steps.hide();
@@ -233,7 +225,6 @@
             $steps.hide();
             $('#step4').fadeIn();
         }
-
 
         $('.goto-step1').on('click', function (event) {
             setTimeout(function () {
@@ -276,29 +267,27 @@
             require('shell').openExternal('https://github.com/jahd2602/raml-js-webservice-generator');
         });
 
-
         var inputFile = '';
         var outputDirectory = '';
         var template = '';
 
-        $('#generator').find('input[name=inputFile]').change(function (event) {
+        $generator.find('input[name=inputFile]').change(function (event) {
             var theFiles = event.target.files;
             inputFile = theFiles[0].path;
-            if(inputFile){
+            if (inputFile) {
                 goToStep2();
             }
             console.log(inputFile);
         });
 
-        $('#generator').find('input[name=outputDirectory]').change(function (event) {
+        $generator.find('input[name=outputDirectory]').change(function (event) {
             var theFiles = event.target.files;
             outputDirectory = theFiles[0].path;
-            if(outputDirectory){
+            if (outputDirectory) {
                 $('#submit-form').trigger('click');
             }
             console.log(outputDirectory);
         });
-
 
         $('.open-output-folder').on('click', function (event) {
             event.preventDefault();
@@ -338,7 +327,6 @@
                 }, 2000);
                 return;
             }
-
 
             /**
              * Pull out options into an object for passing into generator.
@@ -419,9 +407,7 @@
                 });
             }
 
-
         });
-
 
     })();
 

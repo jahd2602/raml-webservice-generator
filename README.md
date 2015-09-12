@@ -53,4 +53,3 @@ See [Sample Project generated](https://github.com/jerson/raml-js-webservice-gene
 ![step2](https://github.com/jahd2602/raml-js-webservice-generator/raw/master/doc/images/app/step2.png "Step2")
 ![step3](https://github.com/jahd2602/raml-js-webservice-generator/raw/master/doc/images/app/step3.png "Step3")
 ![step4](https://github.com/jahd2602/raml-js-webservice-generator/raw/master/doc/images/app/step4.png "Step4")
-![step5](https://github.com/jahd2602/raml-js-webservice-generator/raw/master/doc/images/app/step5.png "Step5")

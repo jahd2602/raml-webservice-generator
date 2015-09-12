@@ -3,5 +3,11 @@
   "version": "1.0.0",
   "description": "RAML WebService generator",
   "main": "ui/main.js",
-  "author": "Gerson Alexander Pardo Gamez <jeral17@gmail.com>"
+  "author": "Gerson Alexander Pardo Gamez <jeral17@gmail.com>",
+  "contributors": [
+    {
+      "name": "Jairo Alejandro Honorio Diaz",
+      "email": "registrofx@gmail.com"
+    }
+  ]
 }

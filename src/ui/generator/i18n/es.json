@@ -1,0 +1,30 @@
+{
+  "@metadata": {
+    "authors": [
+      "Jairo Honorio <registrofx@gmail.com>"
+    ],
+    "last-updated": "2015-09-12",
+    "locale": "es"
+  },
+  "Generator": "Generador",
+  "Generate": "Generar",
+  "Choose": "Elegir",
+  "Choose RAML file": "Elegir archivo RAML",
+  "Exit": "Salir",
+  "Back": "Atrás",
+  "Next": "Siguiente",
+  "Cancel": "Cancelar",
+  "Required field": "Campo requerido",
+  "Step": "Paso",
+  "Choose what you want to generate": "Elige lo que quieres generar",
+  "Language / Framework": "Lenguaje / Framework",
+  "Choose your template": "Elige tu plantilla",
+  "PHP + Silex Application": "PHP + Aplicación Silex",
+  "Choose the output directory": "Elige la carpeta de salida",
+  "unknown": "desconocido",
+  "Enjoy!": "¡Listo!",
+  "Code Generated, enjoy!": "Código generado. ¡Disfrútalo!",
+  "Open Folder": "Abrir Carpeta",
+  "See our code on": "Dale un vistazo a nuestro código en",
+  "Start again": "Otra Vez"
+}

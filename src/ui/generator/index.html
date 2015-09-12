@@ -9,7 +9,32 @@
 </head>
 <body>
 
+<ul id="dropdown1" class="dropdown-content">
+    <li><a href="javascript:window.i18n_locale='en';updateText();">
+        English
+    </a></li>
+    <li><a href="javascript:window.i18n_locale='es';updateText();">
+        Español
+    </a></li>
+</ul>
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo" data-i18n='Generator'></a>
+            <ul class="right">
+                <li>
+                    <a class="dropdown-button" href="#!" data-activates="dropdown1">
+                        <i class="material-icons right" style="margin-left: 0;">arrow_drop_down</i>
+                        <i class="material-icons" style="vertical-align: sub;display:-webkit-box;">language</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
 <div class="container">
+
     <div class="card">
 
         <form id="generator" enctype="multipart/form-data">
@@ -18,12 +43,12 @@
                 <div class="col s12">
 
                     <div class="card-content">
-                        <span class="card-title grey-text text-darken-4">Step 1:
-                            <em>Choose RAML file</em>
+                        <span class="card-title grey-text text-darken-4"><span data-i18n='Step'></span> 1:
+                            <em data-i18n='Choose RAML file'></em>
                         </span>
 
                         <div class="card-panel red lighten-1 error-step1">
-                            <span class="white-text text-accent-1">Required field</span>
+                            <span class="white-text text-accent-1" data-i18n='Required field'></span>
                         </div>
 
                         <div class="row">
@@ -32,7 +57,7 @@
                                     <input class="file-path validate" type="text"/>
 
                                     <div class="btn">
-                                        <span>Choose</span>
+                                        <span data-i18n='Choose'></span>
                                         <input type="file" name="inputFile" accept=".raml"/>
                                     </div>
                                 </div>
@@ -41,10 +66,10 @@
 
                     </div>
                     <div class="card-action">
-                        <button class="btn waves-effect waves-light goto-step2" type="button">Next
+                        <button class="btn waves-effect waves-light goto-step2 right" type="button" data-i18n='Next'>
                         </button>
 
-                        <button class="btn btn-link waves-effect right exit" type="button">Exit
+                        <button class="btn btn-link waves-effect exit" type="button" data-i18n='Exit'>
                         </button>
 
                     </div>
@@ -56,34 +81,34 @@
                 <div class="col s12">
 
                     <div class="card-content">
-                        <span class="card-title grey-text text-darken-4">Step 2:
-                            <em>Choose what you want to generate</em>
+                        <span class="card-title grey-text text-darken-4"><span data-i18n='Step'></span> 2:
+                            <em data-i18n='Choose what you want to generate'></em>
                         </span>
 
                         <div class="card-panel red lighten-1 error-step2">
-                            <span class="white-text text-accent-1">Required field</span>
+                            <span class="white-text text-accent-1" data-i18n='Required field'></span>
                         </div>
 
                         <div class="row">
                             <div class="input-field col s12">
-                                <label for="selTemplate">
-                                    Language / Framework
+                                <label for="selTemplate" data-i18n='Language / Framework'>
+
                                 </label>
                                 <select class="browser-default" name="template" id="selTemplate">
-                                    <option value="" disabled>Choose your template</option>
-                                    <option value="phpSilex" selected>PHP + Silex Application</option>
+                                    <option value="" disabled data-i18n='Choose your template'></option>
+                                    <option value="phpSilex" selected data-i18n='PHP + Silex Application'></option>
                                 </select>
                             </div>
                         </div>
 
                     </div>
                     <div class="card-action">
-                        <button class="btn waves-effect waves-light goto-step3" type="button">Next
+                        <button class="btn waves-effect waves-light goto-step3 right" type="button" data-i18n='Next'>
                         </button>
 
-                        <button class="btn btn-link waves-effect right exit" type="button">Cancel
+                        <button class="btn btn-link waves-effect exit" type="button" data-i18n='Cancel'>
                         </button>
-                        <button class="btn btn-link waves-effect right goto-step1" type="button">Back
+                        <button class="btn btn-link waves-effect right goto-step1" type="button" data-i18n='Back'>
                         </button>
 
                     </div>
@@ -95,15 +120,15 @@
                 <div class="col s12">
 
                     <div class="card-content">
-                        <span class="card-title grey-text text-darken-4">Step 3:
-                            <em>Choose the output directory</em>
+                        <span class="card-title grey-text text-darken-4"><span data-i18n='Step'></span> 3:
+                            <em data-i18n='Choose the output directory'></em>
                         </span>
 
                         <div class="card-panel red lighten-1 error-step3">
-                            <span class="white-text text-accent-1">Required field</span>
+                            <span class="white-text text-accent-1" data-i18n='Required field'></span>
                         </div>
                         <div class="card-panel red lighten-1 error-generator">
-                            <span class="white-text text-accent-1">Error: unknown</span>
+                            <span class="white-text text-accent-1">Error: <span data-i18n='unknown'></span></span>
                         </div>
 
                         <div class="row final-container">
@@ -112,7 +137,7 @@
                                     <input class="file-path validate" type="text"/>
 
                                     <div class="btn">
-                                        <span>Choose</span>
+                                        <span data-i18n='Choose'></span>
                                         <input type="file" name="outputDirectory" webkitdirectory/>
                                     </div>
                                 </div>
@@ -125,12 +150,13 @@
 
                     </div>
                     <div class="card-action">
-                        <button type="submit" class="btn waves-effect waves-light" id="submit-form">Generate
+                        <button type="submit" class="btn waves-effect waves-light right" id="submit-form"
+                                data-i18n='Generate'>
                         </button>
-                        <button class="btn btn-link waves-effect right exit" type="button">Cancel
+                        <button class="btn btn-link waves-effect exit" type="button" data-i18n='Cancel'>
                         </button>
 
-                        <button class="btn btn-link waves-effect right goto-step2" type="button">Back
+                        <button class="btn btn-link waves-effect right goto-step2" type="button" data-i18n='Back'>
                         </button>
 
                     </div>
@@ -142,31 +168,32 @@
                 <div class="col s12">
 
                     <div class="card-content">
-                        <span class="card-title grey-text text-darken-4">Step 4:
-                            <em>Enjoy!</em>
+                        <span class="card-title grey-text text-darken-4"><span data-i18n='Step'></span> 4:
+                            <em data-i18n='Enjoy!'></em>
                         </span>
 
                         <div class="card-panel  green">
-                            <span class="white-text text-accent-1">Code Generated, enjoy!</span>
+                            <span class="white-text text-accent-1" data-i18n='Code Generated, enjoy!'></span>
                         </div>
 
                         <div class="center">
-                            <button class="btn  waves-effect text-black waves-light open-output-folder">Open Folder
+                            <button class="btn  waves-effect text-black waves-light open-output-folder"
+                                    data-i18n='Open Folder'>
                             </button>
                         </div>
 
                         <blockquote>
-                            See our code on <a target="_blank" href="#" id="github-link">Github</a>.
+                            <span data-i18n='See our code on'></span>
+                            <a target="_blank" href="#" id="github-link">Github</a>.
                         </blockquote>
 
                     </div>
                     <div class="card-action">
                         <button type="button"
-                                class="btn btn-again  waves-effect text-black waves-light grey lighten-4 goto-step1">
-                            Start
-                            again
+                                class="btn btn-again  waves-effect text-black waves-light grey lighten-4 goto-step1 right"
+                                data-i18n='Start again'>
                         </button>
-                        <button class="btn btn-link waves-effect right exit" type="button">Exit
+                        <button class="btn btn-link waves-effect exit" type="button">Exit
                         </button>
 
                     </div>
@@ -181,235 +208,33 @@
 <script>
     window.$ = window.jQuery = require('./bower_components/jquery/dist/jquery.js');
     window.Hammer = require('./bower_components/hammerjs/hammer.js');
+
+    // --- I18N ---
+
+    require('./bower_components/jquery.i18n/src/jquery.i18n');
+    require('./bower_components/jquery.i18n/src/jquery.i18n.messagestore');
+    require('./bower_components/jquery.i18n/src/jquery.i18n.parser');
+    require('./bower_components/jquery.i18n/src/jquery.i18n.emitter');
+    require('./bower_components/jquery.i18n/src/jquery.i18n.language');
+    window.i18n_locale = 'en';
+
+    var updateText = function () {
+        var i18n = $.i18n();
+        i18n.locale = window.i18n_locale;
+        var localeToLoad = 'i18n/' + i18n.locale + '.json';
+        i18n.load(localeToLoad, i18n.locale).done(function () {
+            console.log('Loaded locale: ' + i18n.locale + ' from ' + localeToLoad);
+            $('[data-i18n]').i18n();
+        });
+    };
+
+    $(document).ready(function ($) {
+        'use strict';
+        updateText();
+        $('.kittens, .person, .language').on('change keyup', updateText);
+    });
 </script>
 <script src="bower_components/Materialize/dist/js/materialize.js"></script>
-
+<script src="script/wizard-logic.js"></script>
 </body>
-<script>
-
-    (function () {
-
-        var remote = require('remote');
-        var fs = require('fs');
-        var BrowserWindow = remote.require('browser-window');
-        var languages = require('../../languages');
-        var assert = require('assert');
-        var Bluebird = require('bluebird');
-        var resolve = require('path').resolve;
-        var ramlParser = require('raml-parser');
-        var mkdirp = Bluebird.promisify(require('mkdirp'));
-        var writeFile = Bluebird.promisify(require('fs').writeFile);
-
-        $generator = $('#generator');
-        $steps = $generator.find('> .row');
-
-        function goToStep1() {
-            $steps.hide();
-            $('#step1').fadeIn();
-        }
-
-        function goToStep2() {
-            $steps.hide();
-            $('#step2').fadeIn();
-        }
-
-        function goToStep3() {
-            $steps.hide();
-            $('.final-container').show();
-            $('.error-generator').hide();
-            $('.loading').hide();
-            $('#step3').fadeIn();
-        }
-
-        function goToStep4() {
-            $steps.hide();
-            $('#step4').fadeIn();
-        }
-
-        $('.goto-step1').on('click', function (event) {
-            setTimeout(function () {
-                goToStep1();
-            }, 200);
-
-        });
-        $('.goto-step2').on('click', function (event) {
-            setTimeout(function () {
-                goToStep2();
-            }, 200);
-
-        });
-        $('.goto-step3').on('click', function (event) {
-            setTimeout(function () {
-                goToStep3();
-            }, 200);
-
-        });
-        $('.goto-step4').on('click', function (event) {
-            setTimeout(function () {
-                goToStep4();
-            }, 200);
-
-        });
-
-        $('.titlebar-minimize').on('click', function (event) {
-            var window = BrowserWindow.getFocusedWindow();
-            window.minimize();
-        });
-
-        $('.titlebar-close,.exit').on('click', function (event) {
-            var window = BrowserWindow.getFocusedWindow();
-            window.close();
-        });
-
-        $('#github-link').on('click', function (event) {
-            event.preventDefault();
-            console.log('open github link');
-            require('shell').openExternal('https://github.com/jahd2602/raml-js-webservice-generator');
-        });
-
-        var inputFile = '';
-        var outputDirectory = '';
-        var template = '';
-
-        $generator.find('input[name=inputFile]').change(function (event) {
-            var theFiles = event.target.files;
-            inputFile = theFiles[0].path;
-            if (inputFile) {
-                goToStep2();
-            }
-            console.log(inputFile);
-        });
-
-        $generator.find('input[name=outputDirectory]').change(function (event) {
-            var theFiles = event.target.files;
-            outputDirectory = theFiles[0].path;
-            if (outputDirectory) {
-                $('#submit-form').trigger('click');
-            }
-            console.log(outputDirectory);
-        });
-
-        $('.open-output-folder').on('click', function (event) {
-            event.preventDefault();
-            require('shell').openItem(outputDirectory);
-        });
-
-        $('#submit-form').on('click', function (event) {
-            event.preventDefault();
-
-            $('.loading').show();
-            $('.final-container').hide();
-
-            var template = $('#generator').find('select[name=template]').val();
-
-            if (!inputFile) {
-                goToStep1();
-                $('.error-step1').fadeIn();
-
-                setTimeout(function () {
-                    $('.error-step1').fadeOut();
-                }, 2000);
-                return;
-            } else if (!outputDirectory) {
-                goToStep3();
-                $('.error-step3').fadeIn();
-
-                setTimeout(function () {
-                    $('.error-step3').fadeOut();
-                }, 2000);
-                return;
-            } else if (!template) {
-                goToStep2();
-                $('.error-step2').fadeIn();
-
-                setTimeout(function () {
-                    $('.error-step2').fadeOut();
-                }, 2000);
-                return;
-            }
-
-            /**
-             * Pull out options into an object for passing into generator.
-             *
-             * @type {Object}
-             */
-            var options = {
-                entry: inputFile,
-                output: outputDirectory,
-                language: template
-            };
-
-            /**
-             * Generate the API client.
-             */
-            Bluebird.resolve(options)
-                    .tap(function (options) {
-                        // Make sure the language exists
-                        assert(languages.hasOwnProperty(options.language), 'Unsupported language');
-                    })
-                    .then(function (options) {
-                        // Load the RAML file
-                        //FIXME de momento solo se puede usando readFileSync y los schemas deben estar en el mismo archivo
-
-                        var fileData = fs.readFileSync(options.entry);
-                        return ramlParser.load(fileData);
-//                        return ramlParser.loadFile(options.entry);
-                    })
-                    .then(function (ast) {
-                        // Process the RAML object using the selected language
-                        return languages[options.language](ast, options);
-                    })
-                    .then(function (output) {
-                        // Write the resulting output to the fs
-                        return objectToFs(options.output, output.files);
-                    })
-                    .then(function () {
-                        return setTimeout(function () {
-                            goToStep4();
-                        }, 200);
-                    })
-                    .catch(function (err) {
-                        // Log the error stacktrace
-                        var errorDescription = err instanceof Error ? (err.stack || err.message) : err;
-
-                        goToStep3();
-                        console.log(err);
-                        $('.error-generator').fadeIn();
-                        $('.error-generator span').text('Error: ' + errorDescription);
-
-                    });
-
-            /**
-             * Save on object structure to the file system.
-             *
-             * @param  {String}  dir
-             * @param  {Object}  objectToSave
-             * @return {Promise}
-             */
-            function objectToFs(dir, objectToSave) {
-                var promise = mkdirp(dir);
-
-                Object.keys(objectToSave).forEach(function (key) {
-                    var content = objectToSave[key];
-                    var filename = resolve(dir, key);
-
-                    promise = promise.then(function () {
-                        if (typeof content === 'object') {
-                            return objectToFs(filename, content);
-                        }
-
-                        return writeFile(filename, content);
-                    });
-                });
-
-                return promise.then(function () {
-                    return objectToSave;
-                });
-            }
-
-        });
-
-    })();
-
-</script>
 </html>

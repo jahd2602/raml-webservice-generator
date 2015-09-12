@@ -1,6 +1,6 @@
 body {
-  padding: 10px;
-  overflow: hidden;
+  //padding: 10px;
+  //overflow: hidden;
   //width: 400px !important;
   max-height: 400px !important;
   position: relative;
@@ -19,15 +19,21 @@ body {
 button, select, input, .titlebar-stoplight, .titlebar-minimize, .titlebar-close, a {
   -webkit-app-region: no-drag;
 }
+
 .btn i, .btn-large i, .btn-floating i, .btn-large i, .btn-flat i {
   top: 5px;
   position: relative;
 }
+
 .error-step2,
 .error-step3,
 .error-step1,
 .error-generator {
   display: none;
+}
+
+.card {
+  margin-top: -2px;
 }
 
 .card-title {
@@ -185,6 +191,21 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
   -ms-user-select: none;
   user-select: none;
 }
+
 select.browser-default {
   margin-top: 40px;
+}
+
+.navbar-fixed {
+  height: 64px !important;
+}
+
+nav {
+  height: 64px;
+  line-height: 64px;
+
+  .nav-wrapper i {
+    height: 64px !important;
+    line-height: 64px !important;
+  }
 }

@@ -1,7 +1,6 @@
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
 
-
 // Report crashes to our server.
 require('crash-reporter').start();
 
@@ -22,7 +21,7 @@ app.on('window-all-closed', function () {
 // initialization and is ready to create browser windows.
 app.on('ready', function () {
     // Create the browser window.
-    mainWindow = new BrowserWindow({transparent: false, frame: true, width: 550, height: 400});
+    mainWindow = new BrowserWindow({transparent: false, frame: true, width: 550, height: 450});
 
     mainWindow.setMenu(null);
 

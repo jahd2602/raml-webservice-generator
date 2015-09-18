@@ -8,10 +8,12 @@ var jshint = require('gulp-jshint');
 var watch = require('gulp-watch');
 var run = require('gulp-run');
 var notify = require("gulp-notify");
+var copy = require("gulp-copy");
 var sourcemaps = require('gulp-sourcemaps');
 var browserSync = require('browser-sync');
 var shell = require('gulp-shell');
 var electron = require('gulp-electron');
+var del = require('del');
 var packageJson = require('./package.json');
 //var electron = require('gulp-atom-electron');
 
@@ -96,7 +98,7 @@ gulp.task('serve', ['watch:dist'], function () {
 
 gulp.task('build:all', ['build:js', 'build:apps']);
 
-gulp.task('build:apps', function () {
+gulp.task('build:apps', ['copy:modules'], function () {
 
     var packageJson = require('./src/package.json');
 
@@ -108,7 +110,7 @@ gulp.task('build:apps', function () {
             packageJson: packageJson,
             release: './release',
             cache: './cache',
-            version: 'v0.31.1',
+            version: 'v0.33.0',
             packaging: true,
             platforms: ['win32-x64', 'darwin-x64', 'linux-x64'],
             platformResources: {
@@ -127,7 +129,29 @@ gulp.task('build:apps', function () {
                 }
             }
         }))
-        .pipe(gulp.dest(""));
+        .pipe(gulp.dest(""))
+        .on('end', function () {
+            del([
+                'src/node_modules'
+            ]);
+        });
+});
+
+gulp.task('copy:modules', function (cb) {
+    return gulp.src([
+            './node_modules/folderify/**',
+            './node_modules/include-folder/**',
+            './node_modules/raml-parser/**',
+            './node_modules/string/**',
+            './node_modules/sugar/**',
+            './node_modules/swig/**',
+            './node_modules/yargs/**',
+            './node_modules/bluebird/**',
+            './node_modules/require-dir/**',
+            './node_modules/json-schema/**',
+            './node_modules/mkdirp/**'
+        ])
+        .pipe(copy('./src/', {}));
 });
 
 gulp.task('default', ['build:js', 'watch', 'serve'], function () {

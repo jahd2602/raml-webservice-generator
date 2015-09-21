@@ -4,3 +4,4 @@ require('./base/filter/base');
 
 // List of all the languages available to the generator
 exports.phpSilex = require('./php-silex/generator').generate;
+exports.jsExpress = require('./js-express/generator').generate;

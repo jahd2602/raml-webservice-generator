@@ -70,12 +70,16 @@ module.exports = {
 
         files.server.config['express.js'] = render('server/config/express.js');
         files.server.config['mongoose.js'] = render('server/config/mongoose.js');
-        files.server.config['routes.js'] = render('server/config/routes.js');
-
         files.server.includes['layout.jade'] = render('server/includes/layout.jade');
         files.server.includes['scripts.jade'] = render('server/includes/scripts.jade');
 
         files.server.views['index.jade'] = render('server/views/index.jade');
+
+        // Render dynamic files
+        files.server.config['routes.js'] = render('server/config/routes.js', {
+            resources: resources,
+            resourceGroups: resourceGroups
+        });
 
         return {
             files: files

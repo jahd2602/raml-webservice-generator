@@ -1,60 +1,19 @@
-var mongoose = require('mongoose');
-
 module.exports = function (app) {
-    var messageSchema = mongoose.Schema({message: String});
-    var Message = mongoose.model('Message', messageSchema);
-
-    // JSON API
-    app.get('/api/:id', function (req, res) {
-        Message.find({_id: req.params.id}, function (err, msg) {
-            mongo = msg;
-            res.json(mongo);
-        });
-    });
-
-    app.get('/api', function (req, res) {
-        Message.find(function (err, msg) {
-            mongo = msg;
-            res.json(mongo);
-        });
-    });
-
-    app.post('/api', function (req, res) {
-        var message = new Message({
-            message: req.body.message
-        });
-        message.save(function (err) {
-            if (!err) {
-                console.log("added ".green + message.toString().green);
-            }
-        });
-        res.json(message);
-    });
-
-    app.put('/api/:id', function (req, res) {
-        Message.findOne({_id: req.params.id}, function (err, user) {
-            if (!err) {
-                user.message = req.body.message;
-                console.log("updated ".green + user.toString().green);
-                user.save(function (err) {
-                    if (!err) {
-                        res.json(req.body);
-                    }
-                });
-            }
-        });
-    });
-
-    app.delete('/api/:id', function (req, res) {
-        Message.remove({_id: req.params.id}, function (err) {
-            if (!err) {
-                console.log("deleted ".green + req.params.id.green);
-            }
-        });
-        res.json({'_id': req.params.id});
-    });
-
-    // catch-all GET - defer routing to angular
+    // ---JSON API---
+{% for group in resourceGroups %}
+    // Route functions for {{ group.name }}
+    {% for resource in group.resources %}{% for methodObject in resource.methods %}
+    function {{ group.name }}_{{ methodObject.action }}{{ resource.suffix }} (req, res) {
+        // TODO Not implemented yet
+        res.json({error: true, msg: '{{ group.name }}_{{ methodObject.action }}{{ resource.suffix }} not implemented yet'});
+    }
+    {% endfor %}{% endfor %}
+    // Assign {{ group.name }} functions to routes
+    {% for resource in group.resources %}{% for methodObject in resource.methods %}{% spaceless %}
+            app.{{ methodObject.method }}('/api{{ resource.parentRelativeUri }}{{ resource.relativeUri }}', {{ group.name }}_{{ methodObject.action }}{{ resource.suffix }});
+        {% endspaceless %}
+    {% endfor %}{% endfor %}{% endfor %}
+    // Catch all GET and defer routing to angular
     app.get('*', function (req, res) {
         res.render('index', {});
     });

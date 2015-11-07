@@ -74,6 +74,7 @@
     "raml-parser": "git+https://github.com/jerson/raml-js-parser.git",
     "string": "^3.0.0",
     "sugar": "^1.4.1",
-    "swig": "^1.4.2"
+    "swig": "^1.4.2",
+    "json-schema-converter": "0.0.4"
   }
 }

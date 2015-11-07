@@ -1,4 +1,11 @@
 module.exports = function (app) {
+// ---MODELS---
+
+{% for schemaName,schema in schemas %}
+    var {{ schemaName }}Schema = mongoose.Schema({{ schema | toMongoose | raw }});
+    var Message = mongoose.model('Message', messageSchema);
+{% endfor %}
+
     // ---JSON API---
 {% for group in resourceGroups %}
     // Route functions for {{ group.name }}

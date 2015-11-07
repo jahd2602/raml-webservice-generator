@@ -2,7 +2,7 @@ var S = require('string'),
     schemaParser = require('./parser/schema');
 
 /**
- *
+ * Get schemas
  * @param ast
  * @returns {{}} associative array containing all the tables parsed
  */

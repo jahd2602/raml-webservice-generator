@@ -78,7 +78,8 @@ module.exports = {
         // Render dynamic files
         files.server.config['routes.js'] = render('server/config/routes.js', {
             resources: resources,
-            resourceGroups: resourceGroups
+            resourceGroups: resourceGroups,
+            schemas: schemas
         });
 
         return {

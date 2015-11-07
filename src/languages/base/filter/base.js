@@ -6,11 +6,11 @@ var swig = require('swig'),
     string = require('string'),
     util = require('util'),
     keysParser = require('../parser/keys'),
-    typeParser = require('../parser/type');
-
+    typeParser = require('../parser/type'),
+    jsonSchemaConverter = require('json-schema-converter');
 
 swig.setFilter('capitalize', function (input) {
-    return string('_'+input).camelize().s;
+    return string('_' + input).camelize().s;
 });
 
 swig.setFilter('dasherize', function (input) {
@@ -29,13 +29,12 @@ swig.setFilter('camelize', function (input) {
     return string(input).camelize().s;
 });
 
-
 swig.setFilter('parseType', function (propertyName, schemas) {
     return typeParser.type(propertyName, schemas);
 });
 swig.setFilter('parseDoctrineType', function (propertyName, schemas) {
-    var type =  typeParser.type(propertyName, schemas);
-    if(type==='array'){
+    var type = typeParser.type(propertyName, schemas);
+    if (type === 'array') {
         return 'simple_array';
     }
     return type;
@@ -70,9 +69,7 @@ swig.setFilter('isAutoIncrement', function (propertyName, schema) {
     return keyName && keyName.length ? (keyName[0] === propertyName && isAutoIncrement(primaryProperty[keyName])) : false;
 });
 
-
 swig.setFilter('canBeColumn', function (property, schema, schemas) {
-
 
     var canBeColumn = true;
     if (property.type === 'array' && property.items) {
@@ -94,7 +91,6 @@ swig.setFilter('canBeColumn', function (property, schema, schemas) {
     return canBeColumn;
 });
 
-
 swig.setFilter('commentValue', function (property) {
 
     if (['file', 'any', 'null', 'array'].indexOf(property.type) !== -1) {
@@ -102,7 +98,6 @@ swig.setFilter('commentValue', function (property) {
     } else {
         return '';
     }
-
 
 });
 
@@ -167,7 +162,6 @@ swig.setFilter('autoIncrements', function (schema, nameSchema) {
 
     return values.join('\n');
 
-
 });
 
 swig.setFilter('entityFromMethod', function (method) {
@@ -184,8 +178,7 @@ swig.setFilter('entityFromMethod', function (method) {
 
     });
 
-    return schema.replace('[]','');
-
+    return schema.replace('[]', '');
 
 });
 
@@ -205,7 +198,6 @@ swig.setFilter('primaryKeys', function (schema, nameSchema) {
     var constraint = util.format('PRIMARY KEY (%s)', values.join(','));
     var indexName = util.format('%s_PK', nameSchema);
     return util.format('ALTER TABLE `%s` ADD CONSTRAINT `%s` %s;', nameSchema, indexName, constraint);
-
 
 });
 
@@ -252,9 +244,40 @@ swig.setFilter('foreignKeys', function (schema, nameSchema, schemas) {
         var fragment = util.format('FOREIGN KEY (`%s`) REFERENCES %s(`%s`)', name, propertyReference, propertyReferencedKeyName);
         values.push(util.format('ALTER TABLE `%s` ADD CONSTRAINT `%s` %s ON UPDATE CASCADE ON DELETE CASCADE;', nameSchema, indexName, fragment));
 
-
     });
 
     return values.join('\n');
 
+});
+
+swig.setFilter('toMongoose', function (schema) {
+
+
+
+    // Clean schema
+    Object.keys(schema).forEach(function (key) {
+
+        // Change date properties to string
+        if (key === 'properties') {
+            var property = schema[key];
+            Object.keys(property).forEach(function (innerKey) {
+                if (property[innerKey]['type'] === 'date'
+                    || property[innerKey]['type'] === 'text'
+                    || property[innerKey]['type'] === 'file'
+                    || property[innerKey]['type'] === 'datetime') {
+                    schema[key][innerKey]['type'] = 'string';
+                } else if (property[innerKey]['type'] === 'array') {
+                    delete schema[key][innerKey]['items'];
+                }
+            });
+        }
+
+    });
+
+    /*if (!jsonSchemaConverter.is_valid(schema)) {
+        var validity = jsonSchemaConverter.validate(schema);
+        throw new Error("JSON Schema is invalid, error is: " + JSON.stringify(validity));
+    }*/
+
+    return JSON.stringify(jsonSchemaConverter.to_mongoose_schema(schema));
 });

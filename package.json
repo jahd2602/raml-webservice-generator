@@ -35,9 +35,6 @@
     "test": "gulp test",
     "build": "gulp build:js"
   },
-  "pre-commit": [
-    "build"
-  ],
   "bin": {
     "raml-to-webservice": "bin/raml-to-webservice.js"
   },

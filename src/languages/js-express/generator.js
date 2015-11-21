@@ -44,6 +44,7 @@ module.exports = {
 
         var resources = raml.resources(RAMLObject);
         var schemas = raml.schemas(RAMLObject);
+        schemaParser.relations(schemas);
         var resourceGroups = raml.resourceGroupsFromResources(resources);
 
         // Dumps the variables to raml/

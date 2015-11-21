@@ -275,9 +275,9 @@ swig.setFilter('toMongoose', function (schema) {
     });
 
     /*if (!jsonSchemaConverter.is_valid(schema)) {
-        var validity = jsonSchemaConverter.validate(schema);
-        throw new Error("JSON Schema is invalid, error is: " + JSON.stringify(validity));
-    }*/
+     var validity = jsonSchemaConverter.validate(schema);
+     throw new Error("JSON Schema is invalid, error is: " + JSON.stringify(validity));
+     }*/
 
     return JSON.stringify(jsonSchemaConverter.to_mongoose_schema(schema));
 });

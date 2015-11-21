@@ -79,7 +79,6 @@ module.exports = {
         });
         files.web['.htaccess'] = render('web/.htaccess', {resources: resources, resourceGroups: resourceGroups});
 
-
         files.src['console.php'] = render('src/console.php', {resources: resources, resourceGroups: resourceGroups});
         files.src['routes.php'] = render('src/routes.php', {resources: resources, resourceGroups: resourceGroups});
         files.src['app.php'] = render('src/app.php', {resources: resources, resourceGroups: resourceGroups});
@@ -106,104 +105,7 @@ module.exports = {
             });
         });
 
-
-        var relations = {};
-        Object.keys(schemas).forEach(function (schemaName) {
-
-                var schema = schemaParser.parse(schemas[schemaName]);
-
-                Object.keys(schema.properties).forEach(function (name) {
-
-                    var property = schema.properties[name];
-                    if (property.type === 'array' && property.items) {
-
-                        if (!Array.isArray(property.items)) {
-                            property.items = [property.items];
-                        }
-
-                        property.items.forEach(function (item) {
-
-                                var relSchema;
-                                var relSchemaExist = true;
-                                var relSchemaName;
-
-                                if (item.ref && schemas.hasOwnProperty(item.ref)) {
-                                    relSchema = schemas[item.ref];
-                                    relSchemaName = item.ref;
-                                    relSchemaExist = true;
-                                } else if (schemas.hasOwnProperty(item.name)) {
-                                    relSchemaName = item.name;
-                                    relSchema = schemas[item.name];
-                                    relSchemaExist = true;
-                                } else {
-                                    relSchemaName = item.name;
-                                    relSchema = JSON.stringify(item);
-                                    relSchemaExist = false;
-                                }
-
-                                var relSchemaDetailsName = util.format('%s_%s', schemaName, relSchemaName);
-
-                                relations[relSchemaDetailsName] = {
-                                    parent: {
-                                        schema: schema,
-                                        name: schemaName
-                                    },
-                                    child: {
-                                        schema: relSchema ? schemaParser.parse(relSchema) : null,
-                                        name: relSchemaName,
-                                        exist: relSchemaExist
-                                    },
-                                    item: item
-                                };
-
-
-                            }
-                        )
-                        ;
-
-                    }
-
-                });
-
-            }
-        );
-
-
-        var cleanPrimaryProperties = function (propertyOld, schemaNameOld) {
-
-            var propertyRel = {};
-            var property = Object.clone(propertyOld, true);
-            var schemaName = Object.clone(schemaNameOld, true);
-
-            if (property && typeof property === 'object') {
-
-                Object.keys(property).forEach(function (propertyName) {
-                    delete property[propertyName].primary;
-                    delete property[propertyName].unique;
-                    delete property[propertyName].uniqueItems;
-                    delete property[propertyName].autoIncrement;
-
-                    property[propertyName].name = schemaName;
-                    property[propertyName].ref = schemaName;
-                    property[propertyName].type = 'object';
-                    propertyRel[schemaName] = property[propertyName];
-                });
-            }
-
-
-            return propertyRel;
-        };
-
-
-        Object.keys(relations).forEach(function (relationName) {
-
-            var relation = relations[relationName];
-            if (!schemas[relation.child.name]) {
-                schemas[relation.child.name] = relation.child.schema;
-            }
-
-        });
-
+        var relations = schemaParser.relations(schemas);
 
         Object.keys(relations).forEach(function (relationName) {
 
@@ -216,22 +118,15 @@ module.exports = {
             var schema = relation.parent.schema;
             var schemaChild = relation.child.schema;
 
-
             var propertySchemaOld = keysParser.firstPrimaryKey(schema);
             var propertyRelSchemaOld = keysParser.firstPrimaryKey(schemaChild);
 
-            var propertySchema = cleanPrimaryProperties(propertySchemaOld, relation.parent.name);
-            var propertyRelSchema = cleanPrimaryProperties(propertyRelSchemaOld, relation.child.name);
-
+            var propertySchema = schemaParser.cleanPrimaryProperties(propertySchemaOld, relation.parent.name);
+            var propertyRelSchema = schemaParser.cleanPrimaryProperties(propertyRelSchemaOld, relation.child.name);
 
             var requiredFields = Object.keys(propertySchema).union(Object.keys(propertyRelSchema));
 
             var properties = Object.merge(propertySchema, propertyRelSchema);
-            var newSchema = {
-                properties: properties,
-                required: requiredFields
-            };
-
 
             if (!relation.child.exist && Object.keys(relation.child.schema.properties).length) {
 

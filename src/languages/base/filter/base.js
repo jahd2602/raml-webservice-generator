@@ -3,11 +3,16 @@
  */
 
 var swig = require('swig'),
+    _ = require('underscore'),
+    mongoose = require('mongoose'),
     string = require('string'),
     util = require('util'),
     keysParser = require('../parser/keys'),
     typeParser = require('../parser/type'),
     jsonSchemaConverter = require('json-schema-converter');
+
+
+_.mixin(require('underscore.deep'));
 
 swig.setFilter('capitalize', function (input) {
     return string('_' + input).camelize().s;
@@ -250,6 +255,78 @@ swig.setFilter('foreignKeys', function (schema, nameSchema, schemas) {
 
 });
 
+
+var __indexOf = [].indexOf || function (item) {
+        for (var i = 0, l = this.length; i < l; i++) {
+            if (i in this && this[i] === item) return i;
+        }
+        return -1;
+    };
+
+var convert, type_ref_to_mongoose_type, type_string_to_mongoose_type,is_valid;
+type_string_to_mongoose_type = {
+    'string': "String",
+    'boolean': "Boolean",
+    'number': "Number",
+    'integer': "Number"
+};
+type_ref_to_mongoose_type = {
+    '#/definitions/objectid': "mongoose.Schema.Types.ObjectId",
+    '#/definitions/date_or_datetime': "Date"
+};
+convert = function (json_schema) {
+    var converted, _ref, _ref1;
+    switch (false) {
+        case json_schema.$ref == null:
+            return (function () {
+                if ((_ref = type_ref_to_mongoose_type[json_schema.$ref]) != null) {
+                    return _ref;
+                } else {
+                    throw new Error("Unsupported $ref value: " + json_schema.$ref);
+                }
+            })();
+        case !(json_schema.type === 'string' && ((_ref1 = json_schema.format) === 'date' || _ref1 === 'date-time')):
+            return type_ref_to_mongoose_type['#/definitions/date_or_datetime'];
+        case type_string_to_mongoose_type[json_schema.type] == null:
+            return type_string_to_mongoose_type[json_schema.type];
+        case json_schema.type !== 'object':
+            if ((json_schema.properties == null) || _.isEmpty(json_schema.properties)) {
+                return mongoose.Schema.Types.Mixed;
+            } else {
+                converted = _.mapValues(json_schema.properties, convert);
+                if (json_schema.required != null) {
+                    return _.mapValues(converted, function (subschema, key) {
+                        if (__indexOf.call(json_schema.required, key) >= 0 && !_.isPlainObject(subschema)) {
+                            return {
+                                type: subschema,
+                                required: true
+                            };
+                        } else {
+                            return subschema;
+                        }
+                    });
+                } else {
+                    return converted;
+                }
+            }
+            break;
+        case json_schema.type !== 'array':
+            if (json_schema.items != null) {
+                return [convert(json_schema.items)];
+            } else {
+                return [];
+            }
+            break;
+        default:
+            throw new Error("Unsupported JSON schema type " + json_schema.type);
+    }
+};
+
+var toMongoose = function (json_schema) {
+    return convert(json_schema);
+};
+
+
 swig.setFilter('toMongoose', function (schema) {
 
 
@@ -279,5 +356,11 @@ swig.setFilter('toMongoose', function (schema) {
      throw new Error("JSON Schema is invalid, error is: " + JSON.stringify(validity));
      }*/
 
-    return JSON.stringify(jsonSchemaConverter.to_mongoose_schema(schema));
+    var schemaString = JSON.stringify(toMongoose(schema));;
+
+    schemaString = schemaString.replace(new RegExp('"String"','g'),'String');
+    schemaString = schemaString.replace(new RegExp('"Boolean"','g'),'Boolean');
+    schemaString = schemaString.replace(new RegExp('"Number"','g'),'Number');
+    //console.log(schemaString);
+    return  schemaString
 });

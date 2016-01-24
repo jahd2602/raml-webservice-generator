@@ -1,3 +1,8 @@
+var express = require('express'),
+    mongoose = require('mongoose'),
+    colors = require('colors');
+
+
 module.exports = function (app) {
 // ---MODELS---
 

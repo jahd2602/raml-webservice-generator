@@ -76,6 +76,7 @@ exports.relations = function (schemas) {
             });
 
         }
+
     );
 
     // Add missing children schemas to base schema
@@ -87,6 +88,10 @@ exports.relations = function (schemas) {
         }
 
     });
+
+    // Fix empty schema with index 0
+    delete schemas[0];
+
     return relations;
 };
 

@@ -32,6 +32,7 @@
         "symfony/translation": "~2.3",
         "symfony/twig-bridge": "~2.3",
         "symfony/validator": "2.5.2",
+        "symfony/http-kernel": "^2.8",
         "fredjuvaux/doctrine-orm-provider": "1.0.*@dev",
         "fredjuvaux/silex-less-provider": "dev-master"
     },

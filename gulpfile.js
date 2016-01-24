@@ -161,3 +161,8 @@ gulp.task('default', ['build:js', 'watch', 'serve'], function () {
 gulp.task('fixtures', ['lint', 'watch:build-fixtures'], function () {
 
 });
+
+
+gulp.task('test', function () {
+    console.log("Mock test");
+});

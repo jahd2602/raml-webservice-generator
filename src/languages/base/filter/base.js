@@ -263,7 +263,7 @@ var __indexOf = [].indexOf || function (item) {
         return -1;
     };
 
-var convert, type_ref_to_mongoose_type, type_string_to_mongoose_type,is_valid;
+var convert, convertOld, type_ref_to_mongoose_type, type_string_to_mongoose_type, is_valid;
 type_string_to_mongoose_type = {
     'string': "String",
     'boolean': "Boolean",
@@ -274,8 +274,12 @@ type_ref_to_mongoose_type = {
     '#/definitions/objectid': "mongoose.Schema.Types.ObjectId",
     '#/definitions/date_or_datetime': "Date"
 };
-convert = function (json_schema) {
+convertOld = function (json_schema) {
     var converted, _ref, _ref1;
+    if (json_schema.type === 'object') {
+        console.log('----------');
+        console.log(json_schema);
+    }
     switch (false) {
         case json_schema.$ref == null:
             return (function () {
@@ -322,6 +326,100 @@ convert = function (json_schema) {
     }
 };
 
+var parseType = function (input) {
+    var type = '';
+    switch (input) {
+        case 'string':
+        case 'date':
+        case 'text':
+        case 'file':
+        case 'datetime':
+            type = 'String';
+            break;
+        case 'integer':
+            type = 'Number';
+            break;
+        case 'boolean':
+            type = 'Boolean';
+            break;
+        case 'number':
+            type = 'Number';
+            break;
+
+    }
+    return type;
+};
+convert = function (json_schema) {
+
+    var mongoose = {};
+    Object.keys(json_schema.properties).forEach(function (key) {
+        var property = json_schema.properties[key];
+
+
+        var isRequired = (json_schema.required || []).indexOf(key) !== -1;
+
+
+        var mongooseProperty = {};
+
+
+        switch (property.type) {
+            case 'string':
+            case 'integer':
+            case 'boolean':
+            case 'date':
+            case 'file':
+            case 'datetime':
+            case 'text':
+            case 'number':
+                mongooseProperty = {
+                    type: parseType(property.type),
+                    required: isRequired
+                };
+                break;
+            case 'array':
+
+
+                var subProperty = property.items[0];
+                var subType = subProperty.type;
+                if (subType === 'object') {
+
+                    mongooseProperty = [
+                        {
+                            required: isRequired,
+                            type: 'mongoose.Schema.Types.ObjectId',
+                            ref: subProperty.ref || subProperty.name
+                        }
+                    ];
+
+                } else {
+
+                    mongooseProperty = [
+                        {
+                            type: parseType(subProperty.type),
+                            required: isRequired
+                        }
+                    ];
+                }
+
+                break;
+            case 'object':
+                mongooseProperty = {
+                    required: isRequired,
+                    type: 'mongoose.Schema.Types.ObjectId',
+                    ref: property.ref
+                };
+                break;
+
+        }
+
+
+        mongoose[key] = mongooseProperty;
+
+
+    });
+    return mongoose;
+};
+
 var toMongoose = function (json_schema) {
     return convert(json_schema);
 };
@@ -330,37 +428,14 @@ var toMongoose = function (json_schema) {
 swig.setFilter('toMongoose', function (schema) {
 
 
+    var schemaString = JSON.stringify(toMongoose(schema));
 
-    // Clean schema
-    Object.keys(schema).forEach(function (key) {
 
-        // Change date properties to string
-        if (key === 'properties') {
-            var property = schema[key];
-            Object.keys(property).forEach(function (innerKey) {
-                if (property[innerKey]['type'] === 'date'
-                    || property[innerKey]['type'] === 'text'
-                    || property[innerKey]['type'] === 'file'
-                    || property[innerKey]['type'] === 'datetime') {
-                    schema[key][innerKey]['type'] = 'string';
-                } else if (property[innerKey]['type'] === 'array') {
-                    delete schema[key][innerKey]['items'];
-                }
-            });
-        }
 
-    });
+    schemaString = schemaString.replace(new RegExp('"String"', 'g'), 'String');
+    schemaString = schemaString.replace(new RegExp('"Boolean"', 'g'), 'Boolean');
+    schemaString = schemaString.replace(new RegExp('"Number"', 'g'), 'Number');
+    schemaString = schemaString.replace(new RegExp('"mongoose.Schema.Types.ObjectId"', 'g'), 'mongoose.Schema.Types.ObjectId');
 
-    /*if (!jsonSchemaConverter.is_valid(schema)) {
-     var validity = jsonSchemaConverter.validate(schema);
-     throw new Error("JSON Schema is invalid, error is: " + JSON.stringify(validity));
-     }*/
-
-    var schemaString = JSON.stringify(toMongoose(schema));;
-
-    schemaString = schemaString.replace(new RegExp('"String"','g'),'String');
-    schemaString = schemaString.replace(new RegExp('"Boolean"','g'),'Boolean');
-    schemaString = schemaString.replace(new RegExp('"Number"','g'),'Number');
-    //console.log(schemaString);
-    return  schemaString
+    return schemaString
 });

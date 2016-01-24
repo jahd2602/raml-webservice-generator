@@ -60,15 +60,6 @@ module.exports = {
         files['README.md'] = render('README.md');
         files['server.js'] = render('server.js');
 
-        files.public.css['style.css'] = render('public/css/style.css');
-        files.public.css['toastr.css'] = render('public/css/toastr.css');
-
-        files.public.js['app.js'] = render('public/js/app.js');
-        files.public.js['TweenMax.min.js'] = render('public/js/TweenMax.min.js');
-
-        files.public.partials['edit.html'] = render('public/partials/edit.html');
-        files.public.partials['main.html'] = render('public/partials/main.html');
-
         files.server.config['express.js'] = render('server/config/express.js');
         files.server.config['mongoose.js'] = render('server/config/mongoose.js');
         files.server.includes['layout.jade'] = render('server/includes/layout.jade');

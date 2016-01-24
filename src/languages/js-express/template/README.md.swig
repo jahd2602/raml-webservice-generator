@@ -8,11 +8,6 @@ npm install
 
 ### Run dev tasks
 
-```
-gulp dev
-```
-
-### Run the Application
 
 ```
 npm start
@@ -21,7 +16,7 @@ npm start
 ### Try it!
 
 ```
-http://localhost:3030/#/main
+http://localhost:3030/api
 ```
 
 ### Database data

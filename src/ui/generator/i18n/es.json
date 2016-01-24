@@ -20,6 +20,7 @@
   "Language / Framework": "Lenguaje / Framework",
   "Choose your template": "Elige tu plantilla",
   "PHP + Silex Application": "PHP + Aplicación Silex",
+  "JavaScript + ExpressJS Application": "JavaScript + Aplicación ExpressJS",
   "Choose the output directory": "Elige la carpeta de salida",
   "unknown": "desconocido",
   "Enjoy!": "¡Listo!",

@@ -12,21 +12,21 @@ var mainWindow = null;
 app.on('window-all-closed', function () {
     // On OS X it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
-    if (process.platform != 'darwin') {
+    //if (process.platform != 'darwin') {
         app.quit();
-    }
+    //}
 });
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', function () {
     // Create the browser window.
-    mainWindow = new BrowserWindow({transparent: false, frame: true, width: 550, height: 350});
+    mainWindow = new BrowserWindow({transparent: false, frame: true, width: 550, height: 450});
 
     mainWindow.setMenu(null);
 
     // and load the index.html of the app.
-    mainWindow.loadUrl('file://' + __dirname + '/generator/index.html');
+    mainWindow.loadURL('file://' + __dirname + '/generator/index.html');
 
     if (process.NODE_ENV === 'dev') {
         // Open the devtools.

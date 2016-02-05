@@ -110,7 +110,7 @@ gulp.task('build:apps', ['copy:modules'], function () {
             packageJson: packageJson,
             release: './release',
             cache: './cache',
-            version: 'v0.33.0',
+            version: 'v0.36.7',
             packaging: true,
             platforms: ['win32-x64', 'darwin-x64', 'linux-x64'],
             platformResources: {
@@ -139,6 +139,11 @@ gulp.task('build:apps', ['copy:modules'], function () {
 
 gulp.task('copy:modules', function (cb) {
     return gulp.src([
+            './node_modules/q/**',
+            './node_modules/json-lint/**',
+            './node_modules/uritemplate/**',
+            './node_modules/inflection/**',
+            './node_modules/underscore/**',
             './node_modules/folderify/**',
             './node_modules/include-folder/**',
             './node_modules/raml-parser/**',

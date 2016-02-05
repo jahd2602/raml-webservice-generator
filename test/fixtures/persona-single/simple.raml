@@ -1,0 +1,68 @@
+#%RAML 0.8
+ 
+title: Ejemplo API
+baseUri: http://misitio.com/{version}
+version: v1
+schemas:
+ - persona: |
+           {
+             "$schema": "http://json-schema.org/draft-04/schema",
+             "id": "http://jsonschema.net",
+             "type": "object",
+             "title": "Persona.",
+             "description": "Representa a una persona natural.",
+             "name": "/",
+             "properties": {
+               "id": {
+                 "id": "http://jsonschema.net/id",
+                 "type": "integer",
+                 "name": "id",
+                 "autoIncrement": true,
+                 "primary": true
+               },
+               "nombre": {
+                 "id": "http://jsonschema.net/nombre",
+                 "type": "string",
+                 "minLength": 4,
+                 "name": "nombre",
+                 "default": "VACIO"
+               }
+             },
+             "required": [
+               "id",
+               "nombre"
+             ]
+            }
+
+/persona:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            schema: "Persona[]"
+  post:
+    responses:
+      200:
+        body:
+          application/json:
+            schema: "Persona"
+  /{id}:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              schema: "Persona"
+    put:
+      responses:
+        200:
+          body:
+            application/json:
+              schema: "Persona"
+    delete:
+      responses:
+        200:
+          body:
+            application/json:
+              schema: "Persona"

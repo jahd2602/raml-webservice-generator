@@ -21,7 +21,7 @@ app.on('window-all-closed', function () {
 // initialization and is ready to create browser windows.
 app.on('ready', function () {
     // Create the browser window.
-    mainWindow = new BrowserWindow({transparent: true, frame: true, width: 550, height: 450});
+    mainWindow = new BrowserWindow({transparent: false, frame: true, width: 550, height: 350});
 
     mainWindow.setMenu(null);
 

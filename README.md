@@ -4,6 +4,8 @@ RAML webservice generator .. is still in development!!
 
 See [Sample Project generated](https://github.com/jerson/raml-js-webservice-generator-example) 
 
+Or see [Video DEMO](https://www.youtube.com/watch?v=AufIRxuaS9w)
+
 
 
 ##RAML Example

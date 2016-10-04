@@ -4,11 +4,11 @@ RAML webservice generator .. is still in development!!
 
 See [Sample Project generated](https://github.com/jerson/raml-js-webservice-generator-example) 
 
-Or see [Video DEMO](https://www.youtube.com/watch?v=AufIRxuaS9w)
+See [Video DEMO](https://www.youtube.com/watch?v=AufIRxuaS9w)
 
+[![RAML JS WebService Generator DEMO](https://img.youtube.com/vi/AufIRxuaS9w/maxresdefault.jpg)](https://www.youtube.com/watch?v=AufIRxuaS9w)
 
-
-##RAML Example
+##Input RAML Example
 
 ```YAML
 

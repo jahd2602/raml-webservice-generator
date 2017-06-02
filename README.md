@@ -8,7 +8,7 @@ See [Video DEMO](https://www.youtube.com/watch?v=AufIRxuaS9w)
 
 [![RAML JS WebService Generator DEMO](https://img.youtube.com/vi/AufIRxuaS9w/maxresdefault.jpg)](https://www.youtube.com/watch?v=AufIRxuaS9w)
 
-##Input RAML Example
+## Input RAML Example
 
 ```YAML
 
@@ -39,17 +39,17 @@ See [Video DEMO](https://www.youtube.com/watch?v=AufIRxuaS9w)
              application/json:
                schema: "Movie[]"
 ```
-##Output Schema
+## Output Schema
 ![schema](https://github.com/jahd2602/raml-js-webservice-generator/raw/master/doc/images/schema.png "Schema Generado")
 
 
 
-##Example Output Project
+## Example Output Project
 
 ![project](https://github.com/jahd2602/raml-js-webservice-generator/raw/master/doc/images/directory.png "Directories")
 
 
-##UI Screenshots
+## UI Screenshots
 
 ![step1](https://github.com/jahd2602/raml-js-webservice-generator/raw/master/doc/images/app/step1.png "Step1")
 ![step2](https://github.com/jahd2602/raml-js-webservice-generator/raw/master/doc/images/app/step2.png "Step2")

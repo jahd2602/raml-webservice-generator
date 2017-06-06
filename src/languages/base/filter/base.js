@@ -179,7 +179,7 @@ swig.setFilter('entityFromMethod', function (method) {
 
     });
 
-    return schema.replace('[]', '');
+    return schema ? schema.replace('[]', '') : null;
 
 });
 

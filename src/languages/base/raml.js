@@ -9,13 +9,15 @@ var S = require('string'),
 exports.schemas = function (ast) {
     var schemas = {};
 
-    ast.schemas.forEach(function (data) {
+    if (ast.schemas) {
+        ast.schemas.forEach(function (data) {
 
-        var keys = Object.keys(data);
-        var tableName = keys[0] ? keys[0] : '';
-        schemas[tableName] = schemaParser.parse(data[tableName]);
+            var keys = Object.keys(data);
+            var tableName = keys[0] ? keys[0] : '';
+            schemas[tableName] = schemaParser.parse(data[tableName]);
 
-    });
+        });
+    }
 
     return schemas;
 };
@@ -80,8 +82,7 @@ exports.resources = function (ast, resources) {
         value.suffixRelativeUri = value.suffixRelativeUri.replace(value.groupRelativeUri, '');
         value.suffixRelativeUri = S(value.suffixRelativeUri).replace(/\//g, ' ').dasherize().slugify().s;
         value.suffixRelativeUri = value.suffixRelativeUri.replace(value.groupRelativeUri, '');
-        value.suffix = S(value.suffixRelativeUri +'-'+ value.relativeUriPathSegments.join('-').replace(/({|})/g, ' ')).capitalize().camelize().s;
-
+        value.suffix = S(value.suffixRelativeUri + '-' + value.relativeUriPathSegments.join('-').replace(/({|})/g, ' ')).capitalize().camelize().s;
 
 
         value.methods = exports.methods(value);

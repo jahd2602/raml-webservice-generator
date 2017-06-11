@@ -16,3 +16,5 @@ $app->register(new MonologServiceProvider(), array(
 $app->register(new WebProfilerServiceProvider(), array(
     'profiler.cache_dir' => __DIR__.'/../var/cache/profiler',
 ));
+
+$app->register(new Silex\Provider\ValidatorServiceProvider());

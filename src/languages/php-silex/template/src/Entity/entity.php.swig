@@ -36,7 +36,6 @@ class {{ name | capitalize }}
      * {% if (propertyName | isPrimaryKey(schema)) %}@Id{% endif %}
      * {% if (propertyName | isAutoIncrement(schema)) %}@GeneratedValue(strategy="AUTO"){% endif %}
      * {% if isObject %}@ManyToOne(targetEntity="{{ property.ref | capitalize }}"),cascade={"persist"}{% endif %}
-     * {% if (propertyName | isRequired(schema)) %}@Assert\NotBlank(){% endif %}
      * {% if isManyToMany  %}@ManyToMany(targetEntity="{{ (relTable.ref || relTable.name) | capitalize }}",cascade={"persist"})
      * @JoinTable(name="{{ name }}_{{ (relTable.ref || relTable.name) }}",
      *      joinColumns={@JoinColumn(name="{{ name }}_id", referencedColumnName="id")},

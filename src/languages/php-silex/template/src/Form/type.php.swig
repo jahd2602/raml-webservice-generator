@@ -3,7 +3,6 @@
 namespace Form;
 
 use Entity;
-use Form\DataTransformer\EntityToIdTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -38,36 +37,42 @@ class {{ name | capitalize }}Type extends AbstractType
             $builder->add('{{ propertyName }}', 'date', array(
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
-                'required' => {% if (propertyName | isRequired(schema)) %}true{% else%}false{% endif %},
+                'required' => {% if (propertyName | isRequired(schema)) %}true,
+                'constraints' => array(new NotBlank()){% else%}false{% endif %},
             ));
         {% elseif type == 'datetime' %}
             $builder->add('{{ propertyName }}', 'date', array(
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd H:mm',
-            'required' => {% if (propertyName | isRequired(schema)) %}true{% else%}false{% endif %},
+            'required' => {% if (propertyName | isRequired(schema)) %}true,
+                        'constraints' => array(new NotBlank()){% else%}false{% endif %},
             ));
         {% elseif type == 'timestamp' %}
             $builder->add('{{ propertyName }}', 'date', array(
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd H:mm',
-                'required' => {% if (propertyName | isRequired(schema)) %}true{% else%}false{% endif %},
+                'required' => {% if (propertyName | isRequired(schema)) %}true,
+                'constraints' => array(new NotBlank()){% else%}false{% endif %},
             ));
         {% elseif isObject %}
             $builder->add('{{ propertyName }}', 'entity', array(
                 'class' => 'Entity\{{ property.ref | capitalize }}',
                 //'property' => 'id',
-                'required' => {% if (propertyName | isRequired(schema)) %}true{% else%}false{% endif %},
+                'required' => {% if (propertyName | isRequired(schema)) %}true,
+                'constraints' => array(new NotBlank()){% else%}false{% endif %},
             ));
         {% elseif isManyToMany %}
             $builder->add('{{ propertyName }}', 'entity', array(
                 'class' => 'Entity\{{ (relTable.ref || relTable.name) | capitalize }}',
                 //'property' => 'id',
                 'multiple' => true,
-                'required' => {% if (propertyName | isRequired(schema)) %}true{% else%}false{% endif %},
+                'required' => {% if (propertyName | isRequired(schema)) %}true,
+                'constraints' => array(new NotBlank()){% else%}false{% endif %},
             ));
         {% else %}
             $builder->add('{{ propertyName }}','text', array(
-                'required' => {% if (propertyName | isRequired(schema)) %}true{% else%}false{% endif %},
+                'required' => {% if (propertyName | isRequired(schema)) %}true,
+                'constraints' => array(new NotBlank()){% else%}false{% endif %},
             ));
         {% endif %}{% endspaceless %}{% endif %}{% endfor %}
     }

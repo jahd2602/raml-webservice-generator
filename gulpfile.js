@@ -44,7 +44,7 @@ gulp.task('watch:build-fixtures', function () {
 
         var fixtureName = process.env.GENERATOR_FIXTURE || 'movies';
         var outputDir = process.env.GENERATOR_OUTPUT || __dirname + '/test/output/' + fixtureName;
-        var command = util.format('node %s/bin/raml-to-webservice.js %s/test/fixtures/%s/api.raml -l jsExpress -o %s', __dirname, __dirname, fixtureName, outputDir);
+        var command = util.format('node %s/bin/raml-to-webservice.js %s/test/fixtures/%s/api.raml -l phpSilex -o %s', __dirname, __dirname, fixtureName, outputDir);
 
         run(command).exec();
     });

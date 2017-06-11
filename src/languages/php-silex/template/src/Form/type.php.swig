@@ -6,6 +6,7 @@ use Entity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class {{ name | capitalize }}Type extends AbstractType
 {
@@ -38,28 +39,28 @@ class {{ name | capitalize }}Type extends AbstractType
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
                 'required' => {% if (propertyName | isRequired(schema)) %}true,
-                'constraints' => array(new NotBlank()){% else%}false{% endif %},
+                'constraints' => array(new Assert\NotBlank()){% else%}false{% endif %},
             ));
         {% elseif type == 'datetime' %}
             $builder->add('{{ propertyName }}', 'date', array(
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd H:mm',
             'required' => {% if (propertyName | isRequired(schema)) %}true,
-                        'constraints' => array(new NotBlank()){% else%}false{% endif %},
+                        'constraints' => array(new Assert\NotBlank()){% else%}false{% endif %},
             ));
         {% elseif type == 'timestamp' %}
             $builder->add('{{ propertyName }}', 'date', array(
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd H:mm',
                 'required' => {% if (propertyName | isRequired(schema)) %}true,
-                'constraints' => array(new NotBlank()){% else%}false{% endif %},
+                'constraints' => array(new Assert\NotBlank()){% else%}false{% endif %},
             ));
         {% elseif isObject %}
             $builder->add('{{ propertyName }}', 'entity', array(
                 'class' => 'Entity\{{ property.ref | capitalize }}',
                 //'property' => 'id',
                 'required' => {% if (propertyName | isRequired(schema)) %}true,
-                'constraints' => array(new NotBlank()){% else%}false{% endif %},
+                'constraints' => array(new Assert\NotBlank()){% else%}false{% endif %},
             ));
         {% elseif isManyToMany %}
             $builder->add('{{ propertyName }}', 'entity', array(
@@ -67,12 +68,12 @@ class {{ name | capitalize }}Type extends AbstractType
                 //'property' => 'id',
                 'multiple' => true,
                 'required' => {% if (propertyName | isRequired(schema)) %}true,
-                'constraints' => array(new NotBlank()){% else%}false{% endif %},
+                'constraints' => array(new Assert\NotBlank()){% else%}false{% endif %},
             ));
         {% else %}
             $builder->add('{{ propertyName }}','text', array(
                 'required' => {% if (propertyName | isRequired(schema)) %}true,
-                'constraints' => array(new NotBlank()){% else%}false{% endif %},
+                'constraints' => array(new Assert\NotBlank()){% else%}false{% endif %},
             ));
         {% endif %}{% endspaceless %}{% endif %}{% endfor %}
     }

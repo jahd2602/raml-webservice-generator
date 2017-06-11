@@ -1,6 +1,6 @@
 {
   "name": "raml-js-webservice-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "RAML WebService generator",
   "main": "src/ui/main.js",
   "repository": {

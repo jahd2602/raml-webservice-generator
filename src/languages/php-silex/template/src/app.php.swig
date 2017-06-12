@@ -40,9 +40,9 @@ $app->register(new DoctrineServiceProvider(), array(
     'db.options' => array(
         'driver'        => 'pdo_mysql',
         'host'          => 'localhost',
-        'dbname'        => 'prueba',
-        'user'          => 'prueba',
-        'password'      => 'prueba',
+        'dbname'        => 'test',
+        'user'          => 'test',
+        'password'      => 'test',
     ),
 ));
 
